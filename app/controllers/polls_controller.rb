@@ -61,6 +61,14 @@ class PollsController < ApplicationController
     end
   end
 
+  def selected_polls
+    redirect_to show_selected_polls_path(:poll_ids => params[:poll_ids])
+  end
+
+  def show_selected_polls
+    @polls = Poll.all_selected(params[:poll_ids])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_poll

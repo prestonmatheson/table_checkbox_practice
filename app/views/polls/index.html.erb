@@ -14,16 +14,20 @@
   </thead>
 
   <tbody>
-    <% @polls.each do |poll| %>
-      <tr>
-        <td><%= poll.title %></td>
-        <td><%= poll.first_name %></td>
-        <td><%= poll.last_name %></td>
-        <td><%= poll.content %></td>
-        <td><%= link_to 'Show', poll %></td>
-        <td><%= link_to 'Edit', edit_poll_path(poll) %></td>
-        <td><%= link_to 'Destroy', poll, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <%= form_tag('/selected_polls') do %>
+      <% @polls.each do |poll| %>
+        <tr>
+          <td><%= check_box_tag 'poll_ids[]', poll.id %></td>
+          <td><%= poll.title %></td>
+          <td><%= poll.first_name %></td>
+          <td><%= poll.last_name %></td>
+          <td><%= poll.content %></td>
+          <td><%= link_to 'Show', poll %></td>
+          <td><%= link_to 'Edit', edit_poll_path(poll) %></td>
+          <td><%= link_to 'Destroy', poll, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+      <div><%= submit_tag 'Submit' %></div>
     <% end %>
   </tbody>
 </table>
