@@ -1,10 +1,15 @@
 class PollsController < ApplicationController
   before_action :set_poll, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /polls
   # GET /polls.json
   def index
     @polls = Poll.all
+  end
+
+  def add_polls
+    render partial: 'table.js.erb', locals: { polls: Poll.all }
   end
 
   # GET /polls/1
@@ -30,9 +35,11 @@ class PollsController < ApplicationController
       if @poll.save
         format.html { redirect_to @poll, notice: 'Poll was successfully created.' }
         format.json { render :show, status: :created, location: @poll }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @poll.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -62,6 +69,7 @@ class PollsController < ApplicationController
   end
 
   def selected_polls
+    byebug
     redirect_to show_selected_polls_path(:poll_ids => params[:poll_ids])
   end
 

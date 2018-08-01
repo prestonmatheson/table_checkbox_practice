@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   match '/selected_polls', to: "polls#selected_polls", via: [:post]
   match '/show_selected_polls', to: "polls#show_selected_polls", via: [:get]
+  post '/add_polls', to: "polls#add_polls"
 end
